@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@/admin/*": ["components/admin*"],
+      "@/global/*": ["components/global*"],
+      "@/app/*": ["components/app*"],
+      "@/config/*": ["config/*"],
+      "@/helpers/*": ["helpers/*"],
+      "@/features/*": ["features/*"],
+      "@/store/*": ["store/*"],
+      "@/styles/*": ["assets/styles/*"],
+      "@/images/*": ["assets/images*"]
+    }
+  }
+}

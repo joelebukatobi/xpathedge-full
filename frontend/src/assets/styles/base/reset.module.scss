@@ -1,0 +1,61 @@
+/*
+  Color Variables
+  ---------------
+*/
+/*
+  Font Variables
+  --------------
+*/
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+
+body {
+  font-family: DM Sans;
+  background: #ffffff;
+}
+::-webkit-scrollbar {
+  width: 0.8rem;
+  &:hover {
+    width: 1rem;
+  }
+  &-track {
+    // background: #676767;
+  }
+  &-thumb {
+    // background: #676767;
+    &:hover {
+      // background: #aa0000;
+    }
+  }
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+  font-size: 62.5%; //10px/16px = 62.5% 1rem
+
+  // @media (min-width: 320px) and (max-width: 390px) {
+  //   font-size: 45%;
+  // }
+
+  // @media (min-width: 390px) and (max-width: 768px) {
+  //   font-size: 60%;
+  // }
+  // @media (min-width: 768px) and (max-width: 1024px) {
+  //   font-size: 55%;
+  // }
+  // @media (min-width: 1024px) and (max-width: 1280px) {
+  //   font-size: 50%;
+  // }
+}
+
+.no-highlight {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.no-highlight:focus {
+  outline: none !important;
+}
