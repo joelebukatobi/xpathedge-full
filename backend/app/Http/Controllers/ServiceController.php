@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Service;
 
-class Service extends Controller
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,16 +15,13 @@ class Service extends Controller
     public function index()
     {
         //
-    }
+        $services = Service::orderBy('created_at', 'asc')->get();
+        $response = [
+            'success' => true,
+            'services' => $services,
+        ];
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response($response, 200);
     }
 
     /**
@@ -35,6 +33,31 @@ class Service extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate(
+            [
+                'name' => 'required',
+                'description' => 'required',
+            ],
+            [
+                'title.required' => 'Please enter name of service',
+                'description.required' => 'Please enter the description of the service',
+            ]
+        );
+
+        $service = Service::create([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        $response = [
+            'success' => true,
+            'message' => 'Service added successfully',
+            'service' => $service,
+
+        ];
+
+        return response($response, 200);
+
     }
 
     /**
@@ -43,20 +66,16 @@ class Service extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
         //
-    }
+        $service = Service::where(['slug' => $slug])->orderBy('created_at', 'asc')->firstOrFail();
+        $response = [
+            'success' => true,
+            'service' => $service,
+        ];
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response($response, 200);
     }
 
     /**
@@ -66,9 +85,32 @@ class Service extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
         //
+        $request->validate(
+            [
+                'name' => 'required',
+                'description' => 'required',
+            ],
+            [
+                'title.required' => 'Please enter name of service',
+                'description.required' => 'Please enter the description of the service',
+            ]
+        );
+
+        $service = Service::where(['slug' => $slug])->firstOrFail();
+        $edit = $request->all();
+        $service->update($edit);
+
+        $response = [
+            'success' => true,
+            'message' => 'Service updated successfully',
+            'service' => $service,
+
+        ];
+
+        return response($response, 200);
     }
 
     /**
@@ -77,8 +119,15 @@ class Service extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
         //
+        $service = Service::where(['slug' => $slug])->firstOrFail()->delete();
+        $response = [
+            'success' => true,
+            'message' => 'Service deleted successfully',
+        ];
+
+        return response($response, 200);
     }
 }

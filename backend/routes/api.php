@@ -49,8 +49,8 @@ Route::get('/posts/{slug}', [PostController::class, 'show']);
 Route::post('/subscriptions', [SubscriptionController::class, 'store']);
 // Contact
 Route::get('/contact/{id}', [ContactController::class, 'show']);
-
-
+// Services
+Route::get('/services', [ServiceController::class, 'index']);
 
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -81,7 +81,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Contact
     Route::post('/contact', [ContactController::class, 'store']);
     Route::post('/contact/{id}', [ContactController::class, 'update']);
-
+    // Services
+    Route::get('/services/{slug}', [ServiceController::class, 'index']);
+    Route::post('/services', [ServiceController::class, 'store']);
+    Route::post('/services/{slug}', [ServiceController::class, 'update']);
+    Route::delete('/services/{slug}', [ServiceController::class, 'destroy']);
 });
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 
 use Storage;
 use App\Models\Post;
-use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -24,8 +23,8 @@ class PostController extends Controller
             'success' => true,
             'posts' => $post,
         ];
-        
-        return response ($response, 200);
+
+        return response($response, 200);
     }
 
     /**
@@ -48,14 +47,15 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
-       $request->validate([
+        $request->validate(
+            [
                 'title' => 'required|string|unique:posts',
                 'post' => 'required|string',
                 'cat_id' => 'required|string',
                 'user_id' => 'required|string',
                 'image' => 'required',
-            ], 
-            [  
+            ],
+            [
                 'title.required' => 'Please enter blogpost title',
                 'title.unique' => 'Sorry, this title has already been used',
                 'post.required' => 'Please add a blogpost',
@@ -63,16 +63,16 @@ class PostController extends Controller
                 'user_id.required' => 'Please select blogpost author',
                 'image.required' => 'Please upload blogpost image',
             ]
-        ); 
-        
+        );
+
         $filename = "";
         if ($request->file('image')) {
             $filename = $request->file('image')->store('images/thumbnail', 'public');
         } else {
             $filename = "null";
         }
-        
-        
+
+
         $post = Post::create([
             'title' => $request->title,
             'post' => $request->post,
@@ -81,7 +81,7 @@ class PostController extends Controller
             'user_id' => $request->user_id,
             'views' => 0
         ]);
-        
+
         if ($request->has('tags')) {
             $post->tags()->attach($request->tags);
         }
@@ -89,8 +89,8 @@ class PostController extends Controller
         $response = [
             'success' => true,
             'message' => 'Post added successfully',
-            'post' => $post, 
-            
+            'post' => $post,
+
         ];
 
         return response($response, 200);
@@ -105,10 +105,10 @@ class PostController extends Controller
     public function show($slug)
     {
         //     
-        $post = Post::where(['slug' => $slug])->with( 'category','tags', 'user')->orderBy('created_at', 'asc')->firstOrFail();
+        $post = Post::where(['slug' => $slug])->with('category', 'tags', 'user')->orderBy('created_at', 'asc')->firstOrFail();
         $response = [
             'success' => true,
-            'post' => $post, 
+            'post' => $post,
         ];
 
         return response($response, 200);
@@ -124,13 +124,14 @@ class PostController extends Controller
     public function update(Request $request, $slug)
     {
         //        
-        $request->validate([
+        $request->validate(
+            [
                 'title' => 'required|unique:posts',
                 'post' => 'required',
                 'cat_id' => 'required|integer',
                 'user_id' => 'required|integer'
-            ], 
-            [  
+            ],
+            [
                 'title.required' => 'Please enter post title',
                 'title.unique' => 'Sorry, this post title has already been used',
                 'post.required' => 'Please add a post',
@@ -155,8 +156,9 @@ class PostController extends Controller
         } else {
             $filename = $post->image;
             $edit['image'] = $filename;
-        };
-        
+        }
+        ;
+
 
         $post->update($edit);
 
@@ -167,8 +169,8 @@ class PostController extends Controller
         $response = [
             'success' => true,
             'message' => 'Post updated successfully',
-            'post' => $post, 
-            
+            'post' => $post,
+
         ];
 
         return response($response, 200);
@@ -192,12 +194,13 @@ class PostController extends Controller
         return response($response, 200);
     }
 
-    public function search($search) { 
+    public function search($search)
+    {
         $result = Post::where('title', 'LIKE', '%' . $search . '%')->orderBy('id', 'desc')->with('categories')->get();
 
         $response = [
             'success' => true,
-            'result' => $result 
+            'result' => $result
         ];
 
         return response($response, 200);
