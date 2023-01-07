@@ -4,7 +4,11 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CareerController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -30,7 +34,7 @@ use Illuminate\Support\Facades\Route;
 
 // User 
 Route::post('/register', [AuthController::class, 'register']); // Remember to delete in production!!!
- // Authentication
+// Authentication
 Route::post('/login', [AuthController::class, 'login']);
 // Category 
 Route::get('/categories', [CategoryController::class, 'index']);
@@ -43,6 +47,8 @@ Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/{slug}', [PostController::class, 'show']);
 // Subscription
 Route::post('/subscriptions', [SubscriptionController::class, 'store']);
+// Contact
+Route::get('/contact/{id}', [ContactController::class, 'show']);
 
 
 
@@ -72,6 +78,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Subscription
     Route::get('/subscriptions', [SubscriptionController::class, 'index']);
     Route::delete('/subscriptions/{id}', [SubscriptionController::class, 'destroy']);
+    // Contact
+    Route::post('/contact', [ContactController::class, 'store']);
+    Route::post('/contact/{id}', [ContactController::class, 'update']);
+
 });
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
