@@ -24,15 +24,6 @@ class ContactController extends Controller
         // return response($response, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -65,6 +56,7 @@ class ContactController extends Controller
         );
 
         $contact = Contact::create([
+            'name' => $request->name,
             'address' => $request->address,
             'email' => $request->email,
             'linkedin' => $request->linkedin,
@@ -91,10 +83,10 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
         //
-        $contact = Contact::where(['id' => $id])->orderBy('created_at', 'asc')->firstOrFail();
+        $contact = Contact::where(['slug' => $slug])->orderBy('created_at', 'asc')->firstOrFail();
         $response = [
             'success' => true,
             'contact' => $contact,
@@ -104,24 +96,13 @@ class ContactController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
         //
         $request->validate(
@@ -147,7 +128,7 @@ class ContactController extends Controller
 
 
 
-        $contact = Contact::where(['id' => $id])->firstOrFail();
+        $contact = Contact::where(['slug' => $slug])->firstOrFail();
         $edit = $request->all();
         $contact->update($edit);
 

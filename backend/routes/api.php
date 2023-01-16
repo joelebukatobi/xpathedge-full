@@ -51,6 +51,12 @@ Route::post('/subscriptions', [SubscriptionController::class, 'store']);
 Route::get('/contact/{id}', [ContactController::class, 'show']);
 // Services
 Route::get('/services', [ServiceController::class, 'index']);
+// Careers
+Route::get('/careers', [CareerController::class, 'index']);
+// Projects
+Route::get('/projects', [ProjectController::class, 'index']);
+// Teams
+Route::get('/teams', [TeamController::class, 'index']);
 
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -82,10 +88,25 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/contact', [ContactController::class, 'store']);
     Route::post('/contact/{id}', [ContactController::class, 'update']);
     // Services
-    Route::get('/services/{slug}', [ServiceController::class, 'index']);
+    Route::get('/services/{slug}', [ServiceController::class, 'show']);
     Route::post('/services', [ServiceController::class, 'store']);
     Route::post('/services/{slug}', [ServiceController::class, 'update']);
     Route::delete('/services/{slug}', [ServiceController::class, 'destroy']);
+    // Careers
+    Route::get('/careers/{slug}', [CareerController::class, 'show']);
+    Route::post('/careers', [CareerController::class, 'store']);
+    Route::post('/careers/{slug}', [CareerController::class, 'update']);
+    Route::delete('/careers/{slug}', [CareerController::class, 'destroy']);
+    // Projects
+    Route::get('/projects/{slug}', [ProjectController::class, 'show']);
+    Route::post('/projects', [ProjectController::class, 'store']);
+    Route::post('/projects/{slug}', [ProjectController::class, 'update']);
+    Route::delete('/projects/{slug}', [ProjectController::class, 'destroy']);
+    // Teams
+    Route::get('/teams/{slug}', [TeamController::class, 'show']);
+    Route::post('/teams', [TeamController::class, 'store']);
+    Route::post('/teams/{slug}', [TeamController::class, 'update']);
+    Route::delete('/teams/{slug}', [TeamController::class, 'destroy']);
 });
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

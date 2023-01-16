@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->longText('description');
             $table->string('image');
             $table->string('link');
+            $table->string('slug');
             $table->timestamps();
         });
     }

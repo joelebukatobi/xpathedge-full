@@ -130,7 +130,7 @@ export default function Post({ tags, categories, users, token }) {
             <Input
               label={'Image'}
               placeholder={'Thumbnail'}
-              name={'new_image'}
+              name={'image'}
               type={'file'}
               onChange={(e) => imageChange(e.target.files)}
               required={'required'}

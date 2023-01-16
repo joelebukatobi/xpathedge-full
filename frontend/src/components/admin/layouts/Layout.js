@@ -7,7 +7,6 @@ import Navbar from '@/admin//layouts/Navbar';
 import Body from '@/admin//layouts/Body';
 import Sidebar from '@/admin//layouts//Sidebar';
 import Loading from '@/admin//components//Loading';
-import Login from '@/admin//components//Login';
 // Config & Helpers
 import { API_URL } from '@/config/index';
 // External Libraries

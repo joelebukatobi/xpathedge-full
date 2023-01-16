@@ -94,7 +94,7 @@ class ServiceController extends Controller
                 'description' => 'required',
             ],
             [
-                'title.required' => 'Please enter name of service',
+                'name.required' => 'Please enter name of service',
                 'description.required' => 'Please enter the description of the service',
             ]
         );
